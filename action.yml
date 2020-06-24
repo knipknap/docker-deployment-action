@@ -38,6 +38,9 @@ inputs:
   pull_images_first:
     description: Pull docker images before deploying.
     required: false
+  swarm_prefix:
+    description: Prefixed before the docker command in docker swarm mode. Can be used to substitute variables by setting environment variables.
+    required: false
 
 runs:
   using: docker
