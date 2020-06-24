@@ -1,4 +1,8 @@
 #!/bin/sh
+set | grep INPUT
+echo $INPUT_SWARM_PREFIX
+echo $INPUT_EMAIL
+
 set -eu
 
 execute_ssh(){
