@@ -49,7 +49,7 @@ fi
 case $INPUT_DEPLOYMENT_MODE in
 
   docker-swarm)
-    DEPLOYMENT_COMMAND="docker"
+    DEPLOYMENT_COMMAND=". $INPUT_DEPLOY_PATH/stacks/.env && docker"
     STACK_FILE=$INPUT_DEPLOY_PATH/${INPUT_STACK_FILE_NAME}
 
     ([[ "$INPUT_COPY_STACK_FILE" = "true" ]] && STACK_FILE="$INPUT_DEPLOY_PATH/$STACK_FILE" ) ||
