@@ -6,7 +6,7 @@ execute_ssh(){
   echo "Execute Over SSH: $@"
   ssh -q -t -i "$HOME/.ssh/id_rsa" \
       -o UserKnownHostsFile=/dev/null \
-      -o StrictHostKeyChecking=no "$INPUT_REMOTE_DOCKER_HOST" $INPUT_SWARM_PREFIX "$@"
+      -o StrictHostKeyChecking=no "$INPUT_REMOTE_DOCKER_HOST" "$INPUT_SWARM_PREFIX" "$@"
 }
 
 if [ -z "$INPUT_REMOTE_DOCKER_HOST" ]; then
