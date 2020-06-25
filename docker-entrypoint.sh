@@ -1,8 +1,4 @@
 #!/bin/sh
-set | grep INPUT
-echo $INPUT_SWARM_PREFIX
-echo $INPUT_EMAIL
-
 set -eu
 
 execute_ssh(){
@@ -49,7 +45,7 @@ fi
 case $INPUT_DEPLOYMENT_MODE in
 
   docker-swarm)
-    DEPLOYMENT_COMMAND="$INPUT_SWARM_PREFIX docker"
+    DEPLOYMENT_COMMAND="docker"
     STACK_FILE=$INPUT_DEPLOY_PATH/${INPUT_STACK_FILE_NAME}
 
     ([[ "$INPUT_COPY_STACK_FILE" = "true" ]] && STACK_FILE="$INPUT_DEPLOY_PATH/$STACK_FILE" ) ||
@@ -105,5 +101,5 @@ if ! [ -z "$INPUT_COPY_STACK_FILE" ] && [ $INPUT_COPY_STACK_FILE = 'true' ] ; th
   execute_ssh ${DEPLOYMENT_COMMAND} "$INPUT_ARGS" 2>&1
 else
   echo "Connecting to $INPUT_REMOTE_DOCKER_HOST..."
-  ${DEPLOYMENT_COMMAND} ${INPUT_ARGS} 2>&1
+  ${INPUT_SWARM_PREFIX} ${DEPLOYMENT_COMMAND} ${INPUT_ARGS} 2>&1
 fi
