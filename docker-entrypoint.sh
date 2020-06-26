@@ -83,7 +83,7 @@ scp -i "$HOME/.ssh/id_rsa" \
 # Only works if the azure/docker-login action has run and set the DOCKER_CONFIG path variable.
 if ! [ -z "$DOCKER_CONFIG" ]; then
   execute_ssh "mkdir -p ~/.docker || true"
-  find / -name config.json
+  find / -name _temp
   ls -la $DOCKER_CONFIG
   scp -i "$HOME/.ssh/id_rsa" \
       -o UserKnownHostsFile=/dev/null \
@@ -91,7 +91,7 @@ if ! [ -z "$DOCKER_CONFIG" ]; then
       $DOCKER_CONFIG/config.json "$INPUT_REMOTE_DOCKER_HOST:~/.docker/"
 fi
 
-if ! [ -z "$INPUT_PULL_IMAGES_FIRST" ] && [ $INPUT_PULL_IMAGES_FIRST = 'true' ] && [ $INPUT_DEPLOYMENT_MODE = 'docker-compose' ] ; then
+if ! [ -z "$INPUT_PULL_IMAGES_FIRST" ] && [ $INPUT_PULL_IMAGES_FIRST = 'true' ] ; then
   execute_ssh "docker-compose -f $INPUT_DEPLOY_PATH/$INPUT_STACK_FILE_NAME pull"
 fi
 
