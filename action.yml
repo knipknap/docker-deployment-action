@@ -14,17 +14,14 @@ inputs:
   args:
     description: Deployment command args.
     required: true
-  deployment_mode:
-    description: Deployment mode either docker-swarm or docker-compose. Default is docker-compose.
-    required: false
-  copy_stack_file:
-    description: Copy stack file to remote server and deploy from the server. Default is false.
-    required: false
   deploy_path:
     description: The path where the stack files will be copied to. Default ~/docker-deployment.
     required: false
   stack_file_name:
     description: Docker stack file used. Default is docker-compose.yaml
+    required: false
+  env_file_name:
+    description: Enironment file to be copied. Default is .env
     required: false
   keep_files:
     description: Number of the files to be kept on the server. Default is 3.
@@ -32,14 +29,8 @@ inputs:
   docker_prune:
     description: A boolean input to trigger docker prune command.
     required: false
-  pre_deployment_command_args:
-    description: The args for the pre deploument command.
-    required: false
   pull_images_first:
     description: Pull docker images before deploying.
-    required: false
-  swarm_prefix:
-    description: Prefixed before the docker command in docker swarm mode. Can be used to substitute variables by setting environment variables.
     required: false
 
 runs:
