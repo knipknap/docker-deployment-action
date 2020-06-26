@@ -87,7 +87,7 @@ if ! [ -z "$DOCKER_CONFIG" ]; then
   scp -i "$HOME/.ssh/id_rsa" \
       -o UserKnownHostsFile=/dev/null \
       -o StrictHostKeyChecking=no \
-      $DOCKER_CONFIG/config.json "$INPUT_REMOTE_DOCKER_HOST:~/.docker/"
+      /github/workflow/config.json "$INPUT_REMOTE_DOCKER_HOST:~/.docker/"
 fi
 
 if ! [ -z "$INPUT_PULL_IMAGES_FIRST" ] && [ $INPUT_PULL_IMAGES_FIRST = 'true' ] ; then
