@@ -81,14 +81,14 @@ scp -i "$HOME/.ssh/id_rsa" \
 
 # Copy the docker config (containing registry credentials), as it's needed for the deploy command to pull images from a private registry.
 # Only works if the azure/docker-login action has run and set the DOCKER_CONFIG path variable.
-if ! [ -z "$DOCKER_CONFIG" ]; then
+#if ! [ -z "$DOCKER_CONFIG" ]; then
   execute_ssh "mkdir -p ~/.docker || true"
-  ls -la $DOCKER_CONFIG
+  ls -la /github
   scp -i "$HOME/.ssh/id_rsa" \
       -o UserKnownHostsFile=/dev/null \
       -o StrictHostKeyChecking=no \
       /github/workflow/config.json "$INPUT_REMOTE_DOCKER_HOST:~/.docker/"
-fi
+#fi
 
 if ! [ -z "$INPUT_PULL_IMAGES_FIRST" ] && [ $INPUT_PULL_IMAGES_FIRST = 'true' ] ; then
   execute_ssh "docker-compose -f $INPUT_DEPLOY_PATH/$INPUT_STACK_FILE_NAME pull"
