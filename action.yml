@@ -36,6 +36,8 @@ inputs:
 runs:
   using: docker
   image: Dockerfile
+  args:
+    - -v /home/runner/work/:/workflow-space
 
 branding:
   icon: send
