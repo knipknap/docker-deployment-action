@@ -83,7 +83,6 @@ scp -i "$HOME/.ssh/id_rsa" \
 # Only works if the azure/docker-login action has run and set the DOCKER_CONFIG path variable.
 #if ! [ -z "$DOCKER_CONFIG" ]; then
   execute_ssh "mkdir -p ~/.docker || true"
-  ls -la /github
   scp -i "$HOME/.ssh/id_rsa" \
       -o UserKnownHostsFile=/dev/null \
       -o StrictHostKeyChecking=no \
