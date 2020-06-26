@@ -1,6 +1,6 @@
-name: Docker Deployment
-author: Al-waleed Shihadeh <wshihadeh.dev@gmail.com>
-description: A GitHub Action that supports docker-compose and Docker Swarm deployments
+name: Docker Swarm Deployment
+author: Samuel Abels <knipknap@gmail.com>
+description: A GitHub Action that supports Docker Swarm deployments
 inputs:
   remote_docker_host:
     description: Remote Docker host ie (user@host)
