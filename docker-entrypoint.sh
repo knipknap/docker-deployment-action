@@ -1,6 +1,9 @@
 #!/bin/sh
 set -eu
 
+ls /
+ls /workflow-space
+
 execute_ssh(){
   echo "Execute Over SSH: $@"
   ssh -q -t -i "$HOME/.ssh/id_rsa" \
