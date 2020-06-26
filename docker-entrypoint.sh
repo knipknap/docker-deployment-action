@@ -80,13 +80,13 @@ scp -i "$HOME/.ssh/id_rsa" \
     $INPUT_ENV_FILE_NAME "$INPUT_REMOTE_DOCKER_HOST:$INPUT_DEPLOY_PATH/"
 
 # Copy the docker config (containing registry credentials), as it's needed for the deploy command to pull images from a private registry.
-# Only works if the azure/docker-login action has run and set the DOCKER_CONFIG path variable.
-if ! [ -z ${DOCKER_CONFIG+x} ]; then
+DOCKER_CONFIG=/github/workflow/config.json
+if [ -f ${DOCKER_CONFIG} ]; then
   execute_ssh "mkdir -p ~/.docker || true"
   scp -i "$HOME/.ssh/id_rsa" \
       -o UserKnownHostsFile=/dev/null \
       -o StrictHostKeyChecking=no \
-      /github/workflow/config.json "$INPUT_REMOTE_DOCKER_HOST:~/.docker/"
+      ${DOCKER_CONFIG} "$INPUT_REMOTE_DOCKER_HOST:~/.docker/"
 fi
 
 if ! [ -z "$INPUT_PULL_IMAGES_FIRST" ] && [ $INPUT_PULL_IMAGES_FIRST = 'true' ] ; then
