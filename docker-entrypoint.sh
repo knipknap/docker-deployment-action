@@ -81,7 +81,7 @@ scp -i "$HOME/.ssh/id_rsa" \
 
 # Copy the docker config (containing registry credentials), as it's needed for the deploy command to pull images from a private registry.
 # Only works if the azure/docker-login action has run and set the DOCKER_CONFIG path variable.
-if ! [ -z "$DOCKER_CONFIG" ]; then
+if ! [ -z ${DOCKER_CONFIG+x} ]; then
   execute_ssh "mkdir -p ~/.docker || true"
   scp -i "$HOME/.ssh/id_rsa" \
       -o UserKnownHostsFile=/dev/null \
