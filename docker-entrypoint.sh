@@ -103,6 +103,7 @@ if ! [ -z "$INPUT_COPY_STACK_FILE" ] && [ $INPUT_COPY_STACK_FILE = 'true' ] ; th
   # Copy the docker config (containing registry credentials), as it's needed for the deploy command to pull images from a private registry.
   # Only works if the azure/docker-login action has run and set the DOCKER_CONFIG path variable.
   execute_ssh "mkdir -p ~/.docker || true"
+  ls -la $DOCKER_CONFIG
   scp -i "$HOME/.ssh/id_rsa" \
       -o UserKnownHostsFile=/dev/null \
       -o StrictHostKeyChecking=no \
