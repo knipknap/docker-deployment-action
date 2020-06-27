@@ -70,8 +70,14 @@ scp -i "$HOME/.ssh/id_rsa" \
     -o UserKnownHostsFile=/dev/null \
     -o StrictHostKeyChecking=no \
     $INPUT_STACK_FILE_NAME "$INPUT_REMOTE_DOCKER_HOST:$INPUT_DEPLOY_PATH/stacks/$FILE_NAME"
-execute_ssh "ln -nfs $INPUT_DEPLOY_PATH/stacks/$FILE_NAME $INPUT_DEPLOY_PATH/$INPUT_STACK_FILE_NAME"
 execute_ssh "ls -t $INPUT_DEPLOY_PATH/stacks/docker-stack-* 2>/dev/null | sed -e 1,${INPUT_KEEP_FILES}d | xargs rm --  2>/dev/null || true"
+
+# Empty or create a build dir, and link the stack file in it.
+# We also create all directories that are referenced by the stack file, as otherwise
+# "docker-compose config" fails. Unfortunately there is not way to skip the check.
+execute_ssh "rm -rf $INPUT_DEPLOY_PATH/build/; mkdir -p $INPUT_DEPLOY_PATH/build || true"
+execute_ssh "ln -nfs $INPUT_DEPLOY_PATH/stacks/$FILE_NAME $INPUT_DEPLOY_PATH/build/$INPUT_STACK_FILE_NAME"
+execute_ssh "cd $INPUT_DEPLOY_PATH; egrep '    (context:|build)' < ${INPUT_STACK_FILE_NAME} | sed -E 's/\s+\S+:\s*//' | xargs mkdir -p ."
 
 # Copy the .env file to allow vor variable substitution in the stack file.
 scp -i "$HOME/.ssh/id_rsa" \
