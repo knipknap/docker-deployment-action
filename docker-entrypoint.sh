@@ -83,7 +83,7 @@ execute_ssh "cd $INPUT_DEPLOY_PATH/build; egrep '    (context:|build)' < ${INPUT
 scp -i "$HOME/.ssh/id_rsa" \
     -o UserKnownHostsFile=/dev/null \
     -o StrictHostKeyChecking=no \
-    $INPUT_ENV_FILE_NAME "$INPUT_REMOTE_DOCKER_HOST:$INPUT_DEPLOY_PATH/"
+    $INPUT_ENV_FILE_NAME "$INPUT_REMOTE_DOCKER_HOST:$INPUT_DEPLOY_PATH/build"
 
 # Copy the docker config (containing registry credentials), as it's needed for the deploy command to pull images from a private registry.
 DOCKER_CONFIG=/github/workflow/config.json
@@ -96,7 +96,7 @@ if [ -f ${DOCKER_CONFIG} ]; then
 fi
 
 if ! [ -z "$INPUT_PULL_IMAGES_FIRST" ] && [ $INPUT_PULL_IMAGES_FIRST = 'true' ] ; then
-  execute_ssh "docker-compose -f $INPUT_DEPLOY_PATH/$INPUT_STACK_FILE_NAME pull"
+  execute_ssh "docker-compose -f $INPUT_DEPLOY_PATH/build/$INPUT_STACK_FILE_NAME pull"
 fi
 
 # Deploy
