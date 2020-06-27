@@ -71,7 +71,7 @@ scp -i "$HOME/.ssh/id_rsa" \
     -o StrictHostKeyChecking=no \
     $INPUT_STACK_FILE_NAME "$INPUT_REMOTE_DOCKER_HOST:$INPUT_DEPLOY_PATH/stacks/$FILE_NAME"
 execute_ssh "ln -nfs $INPUT_DEPLOY_PATH/stacks/$FILE_NAME $INPUT_DEPLOY_PATH/$INPUT_STACK_FILE_NAME"
-execute_ssh "ls -t $INPUT_DEPLOY_PATH/stacks/docker-stack-* 2>/dev/null |  tail -n +$INPUT_KEEP_FILES | xargs rm --  2>/dev/null || true"
+execute_ssh "ls -rt $INPUT_DEPLOY_PATH/stacks/docker-stack-* 2>/dev/null |  tail -n$INPUT_KEEP_FILES | xargs rm --  2>/dev/null || true"
 
 # Copy the .env file to allow vor variable substitution in the stack file.
 scp -i "$HOME/.ssh/id_rsa" \
