@@ -1,7 +1,9 @@
 # Docker Swarm Deployment Action
 
 A GitHub Action that supports docker-compose and Docker Swarm deployments.
-Originally forked from wshihadeh/docker-deployment-action, but largely reworked to improve Docker Swarm support (and drop docker-compose support).
+
+Originally forked from wshihadeh/docker-deployment-action, but largely rewritten
+to improve Docker Swarm support (and drop docker-compose support) and fix bugs.
 
 ## Example
 
